@@ -1,14 +1,30 @@
-board = [
-    ["   ", "|", "   ", "|", "   ", "\n"],
-    ["---", "+", "---", "+", "---", "\n"],
-    ["   ", "|", "   ", "|", "   ", "\n"],
-    ["---", "+", "---", "+", "---", "\n"],
-    ["   ", "|", "   ", "|", "   ", "\n"],
-]
+# frozen_string_literal: true
 
-def print_board (array)
-    board = array.join
-    puts board
+class Board
+  def initialize
+    @board = [
+      ['   ', '|', '   ', '|', '   ', "\n"],
+      ['---', '+', '---', '+', '---', "\n"],
+      ['   ', '|', '   ', '|', '   ', "\n"],
+      ['---', '+', '---', '+', '---', "\n"],
+      ['   ', '|', '   ', '|', '   ', "\n"]
+    ]
+  end
+
+  def convert_to_string
+    @board.join
+  end
+
+  def show_board
+    display_board = convert_to_string
+    puts display_board
+  end
+
+  def check_if_muted
+    puts @board
+  end
 end
 
-print_board(board)
+board = Board.new
+
+board.show_board
