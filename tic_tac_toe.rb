@@ -9,22 +9,37 @@ class Board
       ['---', '+', '---', '+', '---', "\n"],
       ['   ', '|', '   ', '|', '   ', "\n"]
     ]
+    @key = [
+      [' 1 ', '|', ' 2 ', '|', ' 3 ', "\n"],
+      ['---', '+', '---', '+', '---', "\n"],
+      [' 4 ', '|', ' 5 ', '|', ' 6 ', "\n"],
+      ['---', '+', '---', '+', '---', "\n"],
+      [' 7 ', '|', ' 8 ', '|', ' 9 ', "\n"]
+    ]
   end
 
-  def convert_to_string
-    @board.join
+  def player_turn
+    puts 'Player 1\'s turn!'
+    puts 'Options:'
+    puts 'Enter a number 1-9 to play.'
+    puts 'Enter \'key\' to see which number corresponds to which square.'
+    puts 'Enter \'board\' to see the current board.'
+    gets.chomp
   end
+
+  private
 
   def show_board
-    display_board = convert_to_string
+    display_board = @board.join
     puts display_board
   end
 
-  def check_if_muted
-    puts @board
+  def show_key
+    display_board = @key.join
+    puts display_board
   end
 end
 
 board = Board.new
 
-board.show_board
+board.player_turn
