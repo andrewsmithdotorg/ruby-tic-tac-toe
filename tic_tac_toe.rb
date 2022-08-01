@@ -36,7 +36,14 @@ class Board
   def play_turn
     player_turn_instructions
     input = validate_input(gets.chomp)
-    puts input
+    case input
+    when 'board'
+      show_board
+    when 'key'
+      show_key
+    else
+      puts input
+    end
   end
 
   def player_turn_instructions
