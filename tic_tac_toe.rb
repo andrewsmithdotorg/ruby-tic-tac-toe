@@ -10,6 +10,7 @@ class Board
     @player1 = gets.chomp
     puts 'What\'s player two\'s name?'
     @player2 = gets.chomp
+    play_turn
   end
 
   def create_board
@@ -29,7 +30,24 @@ class Board
     ]
   end
 
-  def player_turn
+  private
+
+  def play_turn
+    input = player_turn_instructions
+    validate_input(input)
+  end
+
+  def validate_input(input)
+    valid_inputs = %w[key board 1 2 3 4 5 6 7 8 9]
+    until valid_inputs.include?(input)
+      puts 'invalid input.'
+      input = gets.chomp
+    end
+    puts input
+  end
+
+  def player_turn_instructions
+    puts "\n"
     puts "#{@player1}'s turn!"
     puts 'Options:'
     puts 'Enter a number 1-9 to play.'
@@ -37,8 +55,6 @@ class Board
     puts 'Enter \'board\' to see the current board.'
     gets.chomp
   end
-
-  private
 
   def show_board
     display_board = @board.join
@@ -52,5 +68,3 @@ class Board
 end
 
 board = Board.new
-
-board.player_turn
