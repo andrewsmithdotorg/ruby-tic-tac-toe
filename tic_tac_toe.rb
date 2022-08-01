@@ -3,6 +3,8 @@
 class Board
   def initialize
     fetch_player_names
+    create_board
+    play_turn
   end
 
   def fetch_player_names
@@ -10,7 +12,6 @@ class Board
     @player1 = gets.chomp
     puts 'What\'s player two\'s name?'
     @player2 = gets.chomp
-    play_turn
   end
 
   def create_board
@@ -33,16 +34,8 @@ class Board
   private
 
   def play_turn
-    input = player_turn_instructions
-    validate_input(input)
-  end
-
-  def validate_input(input)
-    valid_inputs = %w[key board 1 2 3 4 5 6 7 8 9]
-    until valid_inputs.include?(input)
-      puts 'invalid input.'
-      input = gets.chomp
-    end
+    player_turn_instructions
+    input = validate_input(gets.chomp)
     puts input
   end
 
@@ -53,7 +46,15 @@ class Board
     puts 'Enter a number 1-9 to play.'
     puts 'Enter \'key\' to see which number corresponds to which square.'
     puts 'Enter \'board\' to see the current board.'
-    gets.chomp
+  end
+
+  def validate_input(input)
+    valid_inputs = %w[key board 1 2 3 4 5 6 7 8 9]
+    until valid_inputs.include?(input)
+      puts 'invalid input.'
+      input = gets.chomp
+    end
+    input
   end
 
   def show_board
