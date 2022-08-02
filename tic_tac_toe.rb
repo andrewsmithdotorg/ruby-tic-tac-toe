@@ -35,14 +35,18 @@ class Board
 
   def play_turn
     player_turn_instructions
-    input = validate_input(gets.chomp)
-    case input
-    when 'board'
-      show_board
-    when 'key'
-      show_key
-    else
-      puts input
+    exit_loop = false
+    while exit_loop == false
+      input = validate_input(gets.chomp)
+      case input
+      when 'board'
+        show_board
+      when 'key'
+        show_key
+      else
+        exit_loop = true
+        puts input
+      end
     end
   end
 
