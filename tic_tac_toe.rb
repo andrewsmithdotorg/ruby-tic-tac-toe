@@ -4,7 +4,9 @@ class Board
   def initialize
     fetch_player_names
     create_board
-    play_turn
+    play_turn   # add a victory/draw checker function, invoke at end of play_turn to set a flag as true if game is over
+                # run play_turn inside an unless loop that checks whether it has become true that game is complete
+                # at end of turn, invoke a 'switch player' function to change between P1 and P2
   end
 
   def fetch_player_names
