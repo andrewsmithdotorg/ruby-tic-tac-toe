@@ -35,6 +35,20 @@ class Board
 
   def play_turn
     player_turn_instructions
+    player_move = player_turn_options
+    puts player_move
+  end
+
+  def player_turn_instructions
+    puts "\n"
+    puts "#{@player1}'s turn!"
+    puts 'Options:'
+    puts 'Enter a number 1-9 to play.'
+    puts 'Enter \'key\' to see which number corresponds to which square.'
+    puts 'Enter \'board\' to see the current board.'
+  end
+
+  def player_turn_options
     exit_loop = false
     while exit_loop == false
       input = validate_input(gets.chomp)
@@ -45,18 +59,9 @@ class Board
         show_key
       else
         exit_loop = true
-        puts input
       end
     end
-  end
-
-  def player_turn_instructions
-    puts "\n"
-    puts "#{@player1}'s turn!"
-    puts 'Options:'
-    puts 'Enter a number 1-9 to play.'
-    puts 'Enter \'key\' to see which number corresponds to which square.'
-    puts 'Enter \'board\' to see the current board.'
+    input
   end
 
   def validate_input(input)
