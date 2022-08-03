@@ -37,8 +37,8 @@ class Board
 
   def play_turn
     player_turn_instructions
-    move = player_turn_options
-    draw_move(move)
+    player_move = player_turn_options
+    draw_move(player_move)
     show_board
   end
 
@@ -92,26 +92,18 @@ class Board
   end
 
   def translate_input(number)
-    case number
-    when '1'
-      [0, 0]
-    when '2'
-      [0, 2]
-    when '3'
-      [0, 4]
-    when '4'
-      [2, 0]
-    when '5'
-      [2, 2]
-    when '6'
-      [2, 4]
-    when '7'
-      [4, 0]
-    when '8'
-      [4, 2]
-    when '9'
-      [4, 4]
-    end
+    @board_translator = {
+      '1' => [0, 0],
+      '2' => [0, 2],
+      '3' => [0, 4],
+      '4' => [2, 0],
+      '5' => [2, 2],
+      '6' => [2, 4],
+      '7' => [4, 0],
+      '8' => [4, 2],
+      '9' => [4, 4]
+    }
+    @board_translator[number]
   end
 end
 
