@@ -19,7 +19,7 @@ class Board
 
   def create_board
     @board = [
-      [' X ', '|', ' X ', '|', '   ', "\n"],
+      ['   ', '|', '   ', '|', '   ', "\n"],
       ['---', '+', '---', '+', '---', "\n"],
       ['   ', '|', '   ', '|', '   ', "\n"],
       ['---', '+', '---', '+', '---', "\n"],
@@ -35,10 +35,18 @@ class Board
   end
 
   def run_game
-    play_turn
-    check_if_end # add a victory/draw checker function, invoke at end of play_turn to set a flag as true if game is over
-    # run play_turn inside an unless loop that checks whether it has become true that game is complete
-    # at end of turn, invoke a 'switch player' function to change between P1 and P2
+    until (@player1_win == true) || (@player2_win == true) || (@draw == true)
+      play_turn
+      # at end of turn, invoke a 'switch player' function to change between P1 and P2
+      check_if_end
+    end
+    if @player1_win == true
+      puts 'player 1 win'
+    elsif @player2_win == true
+      puts 'player 2 win'
+    elsif @draw == true
+      puts 'draw'
+    end
   end
 
   private
@@ -115,8 +123,8 @@ class Board
   end
 
   def check_if_end
-    player1_win_string = " X  X  X "
-    player2_win_string = " O  O  O "
+    player1_win_string = ' X  X  X '
+    player2_win_string = ' O  O  O '
     @win_lines = [
       @board[0][0] + @board[0][2] + @board[0][4], # top row
       @board[2][0] + @board[2][2] + @board[2][4], # middle row
@@ -124,10 +132,12 @@ class Board
       @board[0][0] + @board[2][0] + @board[4][0], # left column
       @board[0][2] + @board[2][2] + @board[4][2], # middle column
       @board[0][4] + @board[2][4] + @board[4][4], # right column
+      @board[0][0] + @board[2][2] + @board[4][4], # TL -> BR diag
+      @board[0][4] + @board[2][2] + @board[4][0] # TR -> BL diag
     ]
-    if @win_lines.include?(player1_win_string)
-      puts "win"
-    end
+    @player1_win = true if @win_lines.include?(player1_win_string)
+    @player2_win = true if @win_lines.include?(player2_win_string)
+    @draw = true unless @board.flatten.include?('   ')
   end
 end
 
