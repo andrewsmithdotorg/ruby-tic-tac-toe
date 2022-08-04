@@ -5,6 +5,8 @@ class Board
     @player1_win = false
     @player2_win = false
     @draw = false
+    @player1_turn = true
+    @player2_turn = false
     fetch_player_names
     create_board
     run_game
@@ -37,8 +39,8 @@ class Board
   def run_game
     until (@player1_win == true) || (@player2_win == true) || (@draw == true)
       play_turn
-      # at end of turn, invoke a 'switch player' function to change between P1 and P2
       check_if_end
+      switch_player
     end
     if @player1_win == true
       puts 'player 1 win'
@@ -120,6 +122,12 @@ class Board
       '9' => [4, 4]
     }
     @board_translator[number]
+  end
+
+  def switch_player
+    puts @player1_turn.to_s
+    @player1_turn = @player1_turn.!
+    @player2_turn = @player2_turn.!
   end
 
   def check_if_end
