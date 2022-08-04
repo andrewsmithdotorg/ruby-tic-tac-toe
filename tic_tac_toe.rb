@@ -2,11 +2,12 @@
 
 class Board
   def initialize
+    @player1_win = false
+    @player2_win = false
+    @draw = false
     fetch_player_names
     create_board
-    play_turn # add a victory/draw checker function, invoke at end of play_turn to set a flag as true if game is over
-    # run play_turn inside an unless loop that checks whether it has become true that game is complete
-    # at end of turn, invoke a 'switch player' function to change between P1 and P2
+    run_game
   end
 
   def fetch_player_names
@@ -18,7 +19,7 @@ class Board
 
   def create_board
     @board = [
-      ['   ', '|', '   ', '|', '   ', "\n"],
+      [' X ', '|', ' X ', '|', '   ', "\n"],
       ['---', '+', '---', '+', '---', "\n"],
       ['   ', '|', '   ', '|', '   ', "\n"],
       ['---', '+', '---', '+', '---', "\n"],
@@ -31,6 +32,13 @@ class Board
       ['---', '+', '---', '+', '---', "\n"],
       [' 7 ', '|', ' 8 ', '|', ' 9 ', "\n"]
     ]
+  end
+
+  def run_game
+    play_turn
+    check_if_end # add a victory/draw checker function, invoke at end of play_turn to set a flag as true if game is over
+    # run play_turn inside an unless loop that checks whether it has become true that game is complete
+    # at end of turn, invoke a 'switch player' function to change between P1 and P2
   end
 
   private
@@ -104,6 +112,22 @@ class Board
       '9' => [4, 4]
     }
     @board_translator[number]
+  end
+
+  def check_if_end
+    player1_win_string = " X  X  X "
+    player2_win_string = " O  O  O "
+    @win_lines = [
+      @board[0][0] + @board[0][2] + @board[0][4], # top row
+      @board[2][0] + @board[2][2] + @board[2][4], # middle row
+      @board[4][0] + @board[4][2] + @board[4][4], # bottom row
+      @board[0][0] + @board[2][0] + @board[4][0], # left column
+      @board[0][2] + @board[2][2] + @board[4][2], # middle column
+      @board[0][4] + @board[2][4] + @board[4][4], # right column
+    ]
+    if @win_lines.include?(player1_win_string)
+      puts "win"
+    end
   end
 end
 
