@@ -95,6 +95,15 @@ class Board
     input
   end
 
+  def validate_new_input(input)
+    valid_inputs = %w[1 2 3 4 5 6 7 8 9]
+    until valid_inputs.include?(input)
+      puts 'invalid input.  Please provide a number between 1 and 9.'
+      input = gets.chomp
+    end
+    input
+  end
+
   def show_board
     display_board = @board.join
     puts display_board
@@ -107,6 +116,11 @@ class Board
 
   def draw_move(number)
     location = translate_input(number)
+    until @board[location[0]][location[1]] == '   '
+      puts 'That square is already taken.  New move?'
+      number = validate_new_input(gets.chomp)
+      location = translate_input(number)
+    end
     @board[location[0]][location[1]] = ' X ' if @player1_turn == true
     @board[location[0]][location[1]] = ' O ' if @player2_turn == true
   end
