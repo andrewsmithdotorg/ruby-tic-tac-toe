@@ -42,13 +42,7 @@ class Board
       check_if_end
       switch_player
     end
-    if @player1_win == true
-      puts 'player 1 win'
-    elsif @player2_win == true
-      puts 'player 2 win'
-    elsif @draw == true
-      puts 'draw'
-    end
+    end_game
   end
 
   private
@@ -106,12 +100,16 @@ class Board
 
   def show_board
     display_board = @board.join
+    puts "\n"
     puts display_board
+    puts "\n"
   end
 
   def show_key
     display_board = @key.join
+    puts "\n"
     puts display_board
+    puts "\n"
   end
 
   def draw_move(number)
@@ -161,6 +159,16 @@ class Board
     @player1_win = true if @win_lines.include?(player1_win_string)
     @player2_win = true if @win_lines.include?(player2_win_string)
     @draw = true unless @board.flatten.include?('   ')
+  end
+
+  def end_game
+    if @player1_win == true
+      puts "\nNice job #{@player1}, you won!  Although to be fair...kinda hard for player 1 to lose."
+    elsif @player2_win == true
+      puts "\nNice job #{@player2}, you won!"
+    elsif @draw == true
+      puts "\nIt's a draw!  Isn't tic-tac-toe fun?"
+    end
   end
 end
 
