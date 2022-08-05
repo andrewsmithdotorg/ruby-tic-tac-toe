@@ -62,7 +62,8 @@ class Board
 
   def player_turn_instructions
     puts "\n"
-    puts "#{@player1}'s turn!"
+    puts "#{@player1}'s turn!" if @player1_turn == true
+    puts "#{@player2}'s turn!" if @player2_turn == true
     puts 'Options:'
     puts 'Enter a number 1-9 to play.'
     puts 'Enter \'key\' to see which number corresponds to which square.'
@@ -106,7 +107,8 @@ class Board
 
   def draw_move(number)
     location = translate_input(number)
-    @board[location[0]][location[1]] = ' X '
+    @board[location[0]][location[1]] = ' X ' if @player1_turn == true
+    @board[location[0]][location[1]] = ' O ' if @player2_turn == true
   end
 
   def translate_input(number)
@@ -125,7 +127,6 @@ class Board
   end
 
   def switch_player
-    puts @player1_turn.to_s
     @player1_turn = @player1_turn.!
     @player2_turn = @player2_turn.!
   end
