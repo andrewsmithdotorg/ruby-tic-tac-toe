@@ -12,6 +12,8 @@ class Board
     run_game
   end
 
+  private
+
   def fetch_player_names
     puts 'What\'s player one\'s name?'
     @player1 = gets.chomp
@@ -37,15 +39,13 @@ class Board
   end
 
   def run_game
-    until (@player1_win == true) || (@player2_win == true) || (@draw == true)
+    until @player1_win || @player2_win || @draw
       play_turn
       check_if_end
       switch_player
     end
     end_game
   end
-
-  private
 
   def play_turn
     player_turn_instructions
@@ -56,8 +56,8 @@ class Board
 
   def player_turn_instructions
     puts "\n"
-    puts "#{@player1}'s turn!" if @player1_turn == true
-    puts "#{@player2}'s turn!" if @player2_turn == true
+    puts "#{@player1}'s turn!" if @player1_turn
+    puts "#{@player2}'s turn!" if @player2_turn
     puts 'Options:'
     puts 'Enter a number 1-9 to play.'
     puts 'Enter \'key\' to see which number corresponds to which square.'
@@ -83,16 +83,16 @@ class Board
   def validate_input(input)
     valid_inputs = %w[key board 1 2 3 4 5 6 7 8 9]
     until valid_inputs.include?(input)
-      puts 'invalid input.'
+      puts 'Invalid input.'
       input = gets.chomp
     end
     input
   end
 
-  def validate_new_input(input)
+  def validate_number_input(input)
     valid_inputs = %w[1 2 3 4 5 6 7 8 9]
     until valid_inputs.include?(input)
-      puts 'invalid input.  Please provide a number between 1 and 9.'
+      puts 'Invalid input.  Please provide a number between 1 and 9.'
       input = gets.chomp
     end
     input
@@ -116,11 +116,11 @@ class Board
     location = translate_input(number)
     until @board[location[0]][location[1]] == '   '
       puts 'That square is already taken.  New move?'
-      number = validate_new_input(gets.chomp)
+      number = validate_number_input(gets.chomp)
       location = translate_input(number)
     end
-    @board[location[0]][location[1]] = ' X ' if @player1_turn == true
-    @board[location[0]][location[1]] = ' O ' if @player2_turn == true
+    @board[location[0]][location[1]] = ' X ' if @player1_turn
+    @board[location[0]][location[1]] = ' O ' if @player2_turn
   end
 
   def translate_input(number)
@@ -162,11 +162,11 @@ class Board
   end
 
   def end_game
-    if @player1_win == true
+    if @player1_win
       puts "\nNice job #{@player1}, you won!  Although to be fair...kinda hard for player 1 to lose."
-    elsif @player2_win == true
+    elsif @player2_win
       puts "\nNice job #{@player2}, you won!"
-    elsif @draw == true
+    elsif @draw
       puts "\nIt's a draw!  Isn't tic-tac-toe fun?"
     end
   end
